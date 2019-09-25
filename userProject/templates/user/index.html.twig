@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>liste des utilisateurs</h1>
+        <div>
+            <a href="{{ path('user_new') }}"><button type="button" class="btn -btn-primary">nouveau utilisateur</button></a>
+            <a href="{{ path('group_index') }}"><button type="button" class="btn -btn-primary">liste des groups</button></a>
+        </div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <a href="{{ path('user_show', {'id': user.id}) }}"><button type="button" class="btn btn-primary">afficher</button></a>
+                        <a href="{{ path('user_edit', {'id': user.id}) }}"><button type="button" class="btn btn-warning">modifier</button></a>
+                        <a class="delete" href="{{ path('user_delete', {'id': user.id}) }}"><button type="button" class="btn btn-danger">supprimer</button></a>
+
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="4">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.delete').click(function() {
+                if (confirm('Are you sure?')) {
+                    let url = $(this).attr('href');
+                    $('#content').load(url);
+                }
+            });
+        });
+    </script>
+{% endblock %}

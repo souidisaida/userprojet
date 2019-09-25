@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group index{% endblock %}
+
+{% block body %}
+
+    <h1>Liste des groupes</h1>
+    <div>
+        <a href="{{ path('group_new') }}"><button type="button" class="btn -btn-primary">nouveau Group</button></a>
+        <a href="{{ path('user_index') }}"><button type="button" class="btn -btn-primary">liste des utilisateur</button></a>
+    </div>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>nom group</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for group in groups %}
+            <tr>
+                <td>{{ group.id }}</td>
+                <td>{{ group.groupName }}</td>
+                <td>
+                    <a href="{{ path('group_edit', {'id': group.id}) }}"><button type="button" class="btn btn-warning">modifier</button></a>
+                    <a class="delete" href="{{ path('group_delete', {'id': group.id}) }}"><button type="button" class="btn btn-danger">supprimer</button></a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">0 resultat</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function() {
+            $('.delete').click(function() {
+                if (confirm('Are you sure?')) {
+                    let url = $(this).attr('href');
+                    $('#content').load(url);
+                }
+            });
+        });
+    </script>
+{% endblock %}

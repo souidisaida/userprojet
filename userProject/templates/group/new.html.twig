@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Group{% endblock %}
+
+{% block body %}
+    <div class="panel panel-default col-sm-6">
+        <div class="panel-heading">
+            Formulaire Ajout Groupe
+        </div>
+        <div class="panel-body">
+            <div class="col-sm-12">
+                <form method="post" action="{{ path('group_new') }}">
+                    <div class="form-group">
+                        <label>nom group</label>
+                        {% if form.groupName.vars.errors != '' %}
+                            <div class="text-danger">
+                                {{ form.groupName.vars.errors|replace({'ERROR: ': '' })|trim }}
+                            </div>
+                        {% endif %}
+                        {{ form_widget(form.groupName) }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    <a href="{{ path('group_index') }}">
+                        <button type="button" class="btn btn-default">Retour</button>
+                    </a>
+                    {{ form_rest(form) }}
+
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

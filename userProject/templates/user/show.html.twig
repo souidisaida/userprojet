@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}detail utilisateur{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    <h1>detail utilisateur</h1>
+        <table class="table">
+            <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ user.id }}</td>
+            </tr>
+            <tr>
+                <th>Username</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ user.email }}</td>
+            </tr>
+            <tr>
+                <th>groupes</th>
+                <td>{{ groups|join(', ') }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <a href="{{ path('user_index') }}"><button type="button" class="btn btn-default">Retour</button></a>
+
+    </div>
+{% endblock %}
